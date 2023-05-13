@@ -18,8 +18,13 @@ public class ApplicationController extends Application {
         mInstance=this;
         mAppDatabase = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class,"baza_de_date").build();
+    }
 
-       
+    public static AppDatabase getAppDatabase(){
+        return mAppDatabase;
+    }
 
+    public static ApplicationController getInstance(){
+        return mInstance;
     }
 }

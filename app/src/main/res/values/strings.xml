@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ProiectAndroid</string>
+    <string name="register">Register</string>
+    <string name="registerUserName">Username</string>
+    <string name="registerPassword">Password</string>
+    <string name="registerButton">Register now!</string>
+    <string name="login">Login</string>
+    <string name="loginUserName">Username</string>
+    <string name="loginPassword">Password</string>
+    <string name="loginButton">Log in</string>
 </resources>

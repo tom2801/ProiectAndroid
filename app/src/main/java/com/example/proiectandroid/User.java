@@ -19,8 +19,8 @@ public class User {
 
     // de adaugat eventual optiunea de poza
 
-    public User (int id_user, @NotNull String userName, @NotNull String password){
-        this.id_user=id_user;
+    public User ( @NotNull String userName, @NotNull String password){
+        //this.id_user=id_user;
         this.userName=userName;
         this.password=password;
     }
