@@ -11,28 +11,38 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements UserOperationsListener{
 
-    //private TextView textView;
+    private TextView textViewRegister;
 
     private Button registerButton;
     private AppCompatEditText registerUserName;
     private AppCompatEditText registerPassword;
 
+    private TextView textViewLogin;
     private Button loginButton;
     private AppCompatEditText loginUserName;
     private AppCompatEditText loginPassword;
+
+    private Button toggleButton;
+
+    private boolean  isLoginVisible;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //textView = findViewById(R.id.registerText);
+        textViewRegister = findViewById(R.id.registerText);
         registerButton = findViewById(R.id.registerButton);
         registerUserName = findViewById(R.id.registerUserName);
         registerPassword = findViewById(R.id.registerPassword);
 
+        textViewLogin = findViewById(R.id.loginText);
         loginButton = findViewById(R.id.loginButton);
         loginUserName = findViewById(R.id.loginUserName);
         loginPassword = findViewById(R.id.loginPassword);
+
+        toggleButton = findViewById(R.id.toggleButton);
+
+        isLoginVisible = true;
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,11 +67,43 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
 
                 if(loginUserName.getText() != null && loginPassword.getText() != null){
 
-                    userName = registerUserName.getText().toString();
-                    password = registerPassword.getText().toString();
+                    userName = loginUserName.getText().toString();
+                    password = loginPassword.getText().toString();
                     // de inserat functie de error popup
                     selectUserRequest(userName,password);
                 }
+            }
+        });
+
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isLoginVisible){
+                    registerButton.setVisibility(View.VISIBLE);
+                    registerUserName.setVisibility(View.VISIBLE);
+                    registerPassword.setVisibility(View.VISIBLE);
+                    textViewRegister.setVisibility(View.VISIBLE);
+
+                    loginButton.setVisibility(View.GONE);
+                    loginUserName.setVisibility(View.GONE);
+                    loginPassword.setVisibility(View.GONE);
+                    textViewLogin.setVisibility(View.GONE);
+
+                    isLoginVisible = false ;
+                }else{
+                    registerButton.setVisibility(View.GONE);
+                    registerUserName.setVisibility(View.GONE);
+                    registerPassword.setVisibility(View.GONE);
+                    textViewRegister.setVisibility(View.GONE);
+
+                    loginButton.setVisibility(View.VISIBLE);
+                    loginUserName.setVisibility(View.VISIBLE);
+                    loginPassword.setVisibility(View.VISIBLE);
+                    textViewLogin.setVisibility(View.VISIBLE);
+
+                    isLoginVisible = true ;
+                }
+
             }
         });
 
@@ -78,7 +120,12 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
 
     @Override
     public void selectUserResponse(User result){
-        Toast.makeText(this, "username: "+result.userName, Toast.LENGTH_SHORT).show();
+        if(result  == null){
+            Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "username: "+result.userName, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void insertUserRequest(String userName, String password){

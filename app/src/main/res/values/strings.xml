@@ -8,4 +8,5 @@
     <string name="loginUserName">Username</string>
     <string name="loginPassword">Password</string>
     <string name="loginButton">Log in</string>
+    <string name="toggleButton">Toggle Register/Login</string>
 </resources>

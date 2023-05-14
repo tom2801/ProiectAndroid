@@ -14,6 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
         android:textSize="30sp"
+        android:visibility="gone"
         />
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -24,7 +25,8 @@
         android:textColor="@color/black"
         android:inputType="text"
         android:textSize="14sp"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        android:visibility="gone"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/registerPassword"
@@ -34,7 +36,8 @@
         android:textColor="@color/black"
         android:inputType="text"
         android:textSize="14sp"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/registerButton"
@@ -43,7 +46,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/teal_200"
-        android:text="@string/registerButton" />
+        android:text="@string/registerButton"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/loginText"
@@ -83,5 +87,15 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/teal_200"
         android:text="@string/loginButton" />
+
+    <Button
+        android:id="@+id/toggleButton"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/teal_200"
+        android:text="@string/toggleButton" />
+
 
 </LinearLayout>

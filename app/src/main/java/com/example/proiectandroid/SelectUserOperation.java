@@ -17,7 +17,7 @@ public class SelectUserOperation extends AsyncTask<String,Void,User> {
         String userName = credentials[0];
         String password = credentials[1];
         try{
-           return ApplicationController.getAppDatabase().userDao().getUserByCredentials(userName,password).get(0);
+           return  ApplicationController.getAppDatabase().userDao().getUserByCredentials(userName,password).get(0);
         } catch (Exception e){
             return null;
         }
