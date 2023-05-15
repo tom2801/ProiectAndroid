@@ -3,6 +3,7 @@ package com.example.proiectandroid;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements UserOperationsListener{
 
+    public static final String idUserLogat = "idUserLogat";
     private TextView textViewRegister;
 
     private Button registerButton;
@@ -123,7 +125,13 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
         if(result  == null){
             Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "username: "+result.userName, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "username: "+result.userName, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,MenuActivity.class);
+            Bundle mBundle = new Bundle() ;
+
+            mBundle.putInt(idUserLogat,result.id_user);
+            intent.putExtras(mBundle) ;
+            startActivity(intent,mBundle);
         }
 
     }
