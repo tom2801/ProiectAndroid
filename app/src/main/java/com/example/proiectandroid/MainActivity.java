@@ -13,6 +13,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements UserOperationsListener{
 
     public static final String idUserLogat = "idUserLogat";
+
+    public static final String userNameLogat = "userNameLogat";
     private TextView textViewRegister;
 
     private Button registerButton;
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
             Bundle mBundle = new Bundle() ;
 
             mBundle.putInt(idUserLogat,result.id_user);
+            mBundle.putString(userNameLogat,result.userName);
             intent.putExtras(mBundle) ;
             startActivity(intent,mBundle);
         }
