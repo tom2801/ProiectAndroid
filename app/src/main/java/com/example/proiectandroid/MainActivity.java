@@ -148,4 +148,10 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
         String[] credentials ={userName,password};
         new SelectUserOperation(this ).execute(credentials);
     }
+
+    private void insertInitialProducts(){
+        Product[] produse={
+
+        };
+    }
 }
