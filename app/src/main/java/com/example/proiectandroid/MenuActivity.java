@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MenuActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MenuActivity extends AppCompatActivity implements ProductOperationsListener {
 
     private int idUserLoggedIn;
 
@@ -45,5 +47,16 @@ public class MenuActivity extends AppCompatActivity {
 
 
 
-}
+    }
+
+
+    @Override
+    public void insertProductsResponse(String result) {
+
+    }
+
+    @Override
+    public void selectProductsResponse(List<Product> result) {
+
+    }
 }

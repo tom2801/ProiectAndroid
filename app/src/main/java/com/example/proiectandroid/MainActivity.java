@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements UserOperationsListener{
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements UserOperationsListener, ProductOperationsListener{
 
     public static final String idUserLogat = "idUserLogat";
 
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
     private Button toggleButton;
 
     private boolean  isLoginVisible;
+
+    private boolean isProductListEmpty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,15 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
         toggleButton = findViewById(R.id.toggleButton);
 
         isLoginVisible = true;
+        isProductListEmpty = false;
+
+        selectProductsRequest();
+
+        if(isProductListEmpty){
+            insertInitialProducts();
+        }
+
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,7 +164,28 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
 
     private void insertInitialProducts(){
         Product[] produse={
-
+            new Product(1,"pizza1",22),
+            new Product(2,"pizza2",23),
+            new Product(3,"pizza3",24),
+            new Product(4,"pizza4",25)
         };
+        new InsertProductOperation(this).execute(produse);
+    }
+
+    public void selectProductsRequest(){
+        new SelectProductsOperation(this).execute();
+    }
+
+    @Override
+    public void insertProductsResponse(String result){
+        if(result.equals("success")){
+            Toast.makeText(this, "Produsele au fost inserate", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void selectProductsResponse(List<Product> result){
+        if(result == null || result.isEmpty()){
+            isProductListEmpty=true;
+        }
     }
 }
