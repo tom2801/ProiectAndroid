@@ -1,5 +1,8 @@
 package com.example.proiectandroid;
 
+import static com.example.proiectandroid.ItemsContainer.looped;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -7,8 +10,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
@@ -33,10 +44,20 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
     private boolean  isLoginVisible;
 
     private boolean isProductListEmpty;
+
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+    Button googleButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc=GoogleSignIn.getClient(this,gso);
+        googleButton = findViewById(R.id.google_button);
 
         textViewRegister = findViewById(R.id.registerText);
         registerButton = findViewById(R.id.registerButton);
@@ -55,10 +76,13 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
 
         selectProductsRequest();
 
-        if(isProductListEmpty){
-            insertInitialProducts();
-        }
 
+        googleButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                    googleSignIn();
+                }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +151,12 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        looped=false;
+    }
+
+    @Override
     public void insertUsersResponse(String result){
         if(result.equals("success")){
             Toast.makeText(this, "User creat cu succes", Toast.LENGTH_SHORT).show();
@@ -181,11 +211,41 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
         if(result.equals("success")){
             Toast.makeText(this, "Produsele au fost inserate", Toast.LENGTH_SHORT).show();
         }
+
     }
     @Override
     public void selectProductsResponse(List<Product> result){
         if(result == null || result.isEmpty()){
             isProductListEmpty=true;
         }
+        if(isProductListEmpty){
+            insertInitialProducts();
+        }
+    }
+
+    void googleSignIn(){
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent,1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try{
+                task.getResult(ApiException.class);
+                goToMenu();
+            }catch(ApiException e){
+                Toast.makeText(getApplicationContext(), "Eroare sign In", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+    void goToMenu(){
+        finish();
+        Intent intent = new Intent(this,MenuActivity.class);
+        startActivity(intent);
     }
 }

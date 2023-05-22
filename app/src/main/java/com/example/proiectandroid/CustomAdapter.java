@@ -50,14 +50,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ProductVie
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.Product_name);
-            price = itemView.findViewById(R.id.tv_price);  // de modificat astfel incat id-urile sa corespund acu componenta mea
-            layout = itemView.findViewById(R.id.container);
+            name = itemView.findViewById(R.id.product_title);
+            price = itemView.findViewById(R.id.product_price);  // de modificat astfel incat id-urile sa corespund acu componenta mea
+            layout = itemView.findViewById(R.id.product_container);
         }
 
         public void bind(ProductModel item) {
             name.setText(item.getName());
-            price.setText(item.getPrice());
+            price.setText(Integer.toString(item.getPrice()));
 
 
             layout.setOnClickListener(new View.OnClickListener() {

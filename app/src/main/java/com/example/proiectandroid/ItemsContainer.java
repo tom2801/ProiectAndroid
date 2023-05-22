@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirstFragment extends Fragment implements OnItemClickListener {
+public class ItemsContainer extends Fragment implements OnItemClickListener,ProductOperationsListener {
 
     public static List<ProductModel> ProductModelList = new ArrayList<>();
 
@@ -21,21 +21,21 @@ public class FirstFragment extends Fragment implements OnItemClickListener {
 
     public static String PIZZA= "pizza";
 
-    public FirstFragment() { super(R.layout.fragment_first);} //aici e fragment_items_container
+    public static View currentView;
+
+    public static boolean looped = false; // for some reason onViewCreated rula de 2 ori si imi incarca de 2 ori bd-ul
+    public ItemsContainer() { super(R.layout.fragment_items_container);} //aici e fragment_items_container
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        currentView=view;
         initializeList();
-
-        CustomAdapter adapter = new CustomAdapter(ProductModelList, this);
-        RecyclerView rv = view.findViewById(R.id.recycler_view);
-        rv.setAdapter(adapter);
     }
 
     private void initializeList() {
-        // cod care interactioneaza cu baza de date
+        ProductModelList.clear();
+        new SelectProductsOperation(this).execute();
     }
 
     @Override
@@ -54,4 +54,27 @@ public class FirstFragment extends Fragment implements OnItemClickListener {
 //                .addToBackStack(null);
 //        fragmentTransaction.commit();
   }
+
+    @Override
+    public void insertProductsResponse(String result) {
+        // ca sa nu dea eroare
+    }
+
+    @Override
+    public void selectProductsResponse(List<Product> result) {
+        if(result != null && !result.isEmpty() && !looped){
+           for (Product produs: result){
+               ProductModelList.add(new ProductModel(
+                       produs.productName,
+                       produs.price,
+                       produs.id_product
+
+               ));
+           }
+            looped=true;
+            CustomAdapter adapter = new CustomAdapter(ProductModelList, this);
+            RecyclerView rv = currentView.findViewById(R.id.recycler_view);
+            rv.setAdapter(adapter);
+        }
+    }
 }
