@@ -57,7 +57,7 @@ public class MenuActivity extends AppCompatActivity implements ProductOperations
         gsc = GoogleSignIn.getClient(this,gso);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null){
+        if(acct!=null && bundle.getBoolean("googleLogIn")){
             bundleFragment.putString("userName",acct.getDisplayName());
         }else {
             idUserLoggedIn = bundle.getInt(idUserLogat);
@@ -68,10 +68,10 @@ public class MenuActivity extends AppCompatActivity implements ProductOperations
         }
 
         navFragment1.setArguments(bundleFragment);
-        if (userNameLoggedIn != null) {
-
-            Toast.makeText(this, userNameLoggedIn, Toast.LENGTH_SHORT).show();
-        }
+//        if (userNameLoggedIn != null) {
+//
+//            Toast.makeText(this, userNameLoggedIn, Toast.LENGTH_SHORT).show();
+//        }
 
            if(savedInstanceState == null){
                getSupportFragmentManager().beginTransaction()
@@ -80,7 +80,7 @@ public class MenuActivity extends AppCompatActivity implements ProductOperations
 
                getSupportFragmentManager().beginTransaction()
                        .setReorderingAllowed(true)
-                       .replace(R.id.items_fragment_container,ItemsContainer.class, null)
+                       .add(R.id.items_fragment_container,ItemsContainer.class, null)
                        .commit();
            }
 
@@ -93,6 +93,7 @@ public class MenuActivity extends AppCompatActivity implements ProductOperations
                      signOut();
                  }
              });
+
          }
 
     }

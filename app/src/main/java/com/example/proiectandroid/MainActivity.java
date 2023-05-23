@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
 
             mBundle.putInt(idUserLogat,result.id_user);
             mBundle.putString(userNameLogat,result.userName);
+            mBundle.putBoolean("googleLogIn",false);
             intent.putExtras(mBundle) ;
             startActivity(intent,mBundle);
         }
@@ -246,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements UserOperationsLis
     void goToMenu(){
         finish();
         Intent intent = new Intent(this,MenuActivity.class);
+        intent.putExtra("googleLogIn",true);
         startActivity(intent);
     }
 }

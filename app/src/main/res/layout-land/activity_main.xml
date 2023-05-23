@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/registerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="30sp"
+            android:visibility="gone"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/registerUserName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/registerUserName"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:layout_margin="20dp"
+            android:visibility="gone"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/registerPassword"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/registerPassword"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:layout_margin="20dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/teal_200"
+            android:text="@string/registerButton"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/loginText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:textSize="30sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/loginUserName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/loginUserName"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:layout_margin="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/loginPassword"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/teal_200"
+            android:text="@string/loginButton" />
+
+        <Button
+            android:id="@+id/toggleButton"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/teal_200"
+            android:text="@string/toggleButton" />
+
+        <Button
+            android:id="@+id/google_button"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/teal_200"
+            android:layout_marginTop="30dp"
+            android:text="Google Sign In"/>
+    </LinearLayout>
+
+</ScrollView>
+

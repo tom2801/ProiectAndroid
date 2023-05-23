@@ -1,5 +1,7 @@
 package com.example.proiectandroid;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,12 +17,14 @@ import java.util.List;
 
 public class ItemsContainer extends Fragment implements OnItemClickListener,ProductOperationsListener {
 
+
     public static List<ProductModel> ProductModelList = new ArrayList<>();
 
     public static String PIZZA_NAME = "pizza_name";
 
     public static String PIZZA= "pizza";
 
+    private Intent intentProductPage;
     public static View currentView;
 
     public static boolean looped = false; // for some reason onViewCreated rula de 2 ori si imi incarca de 2 ori bd-ul
@@ -39,25 +43,37 @@ public class ItemsContainer extends Fragment implements OnItemClickListener,Prod
     }
 
     @Override
-    public void onItemClick(ProductModel item) { // replace code cu ce am eu chef
-//        Bundle bundle = new Bundle();
-//
-//        bundle.putString(PIZZA_NAME, item.getName());
-//        bundle.putParcelable(PIZZA, item);
-//
-//        SecondFragment secondFragment = new SecondFragment();
-//        secondFragment.setArguments(bundle);
-//
-//        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//        fragmentTransaction.replace(R.id.fragment_container, secondFragment)
-//                .addToBackStack(null);
-//        fragmentTransaction.commit();
+    public void onItemClick(ProductModel item) {
+        if(isAdded()){
+            Intent intentGoToProductPage =  new Intent(getActivity(), ProductPageActivity.class);
+            Bundle bundleProdus = new Bundle();
+
+            Integer idProdus = item.getIdProduct();
+            bundleProdus.putInt("idProduct",idProdus);
+            String numeProdus = item.getName();
+            bundleProdus.putString("numeProdus",numeProdus);
+
+            // bundle nu a vrut sa mearga asa ca am folosit putExtras;
+            // super dubios, ca in activitatea de logIn a mers
+            intentGoToProductPage.putExtra("idProduct",idProdus);
+            intentGoToProductPage.putExtra("numeProdus",numeProdus);
+            startActivity(intentGoToProductPage);
+        }
+
+
   }
 
     @Override
     public void insertProductsResponse(String result) {
         // ca sa nu dea eroare
+    }
+
+    @Override
+    public void onAttach(Activity a) {
+
+        super.onAttach(a);
+        this.intentProductPage= new Intent(a, ProductPageActivity.class);
+
     }
 
     @Override
